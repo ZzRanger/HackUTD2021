@@ -2,7 +2,6 @@ import { DocumentData } from "firebase/firestore";
 import { CSSProperties } from "react";
 
 export default function ProfileCard({ item }: DocumentData) {
-  console.log(item);
   function ItemImage({ item }: any): JSX.Element {
     const imageStyle: CSSProperties = {
       backgroundImage:
@@ -22,19 +21,26 @@ export default function ProfileCard({ item }: DocumentData) {
   }
 
   return (
-    <div className="flex flex-row justify-between mt-4">
-      <div className="flex flex-row">
-        <ItemImage itemId={item} />
-        <div className="flex flex-col ">
-          <div>{item.name}</div>
-          <div>{item.date}</div>
-          <div>
-            <button> Edit </button>
-            <button> Delete </button>
-          </div>
+    <div className="flex flex-row mb-4">
+      <ItemImage itemId={item} />
+      <div className="p-5">
+        <p className="text-lg">{item.name}</p>
+        <p className="text-lg">Found on {item.date} at {item.location}</p>
+        <div className="flex flex-row gap-5 mt-5">
+          <a
+            className="flex items-center bg-green w-20 h-8 rounded-2xl "
+            href=""
+          >
+            <p className="w-full text-center">Edit</p>
+          </a>
+          <a
+            className="flex items-center bg-green w-20 h-8 rounded-2xl "
+            href=""
+          >
+            <p className="w-full text-center">Delete</p>
+          </a>
         </div>
       </div>
-      <div className="justify-self-end">{item.location}</div>
     </div>
   );
 }
