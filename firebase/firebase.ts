@@ -1,5 +1,6 @@
-import { addDoc, collection, doc, setDoc, getDocs, deleteDoc} from "firebase/firestore";
-import { db } from "../pages/_app";
+import { User } from "firebase/auth";
+import { addDoc, collection, doc, setDoc, getDocs, deleteDoc, query, where} from "firebase/firestore";
+import { auth, db } from "../pages/_app";
 
 export type Item = {
     id?: string, // firestore id
@@ -9,8 +10,9 @@ export type Item = {
     location: string,
     description: string
 }
-async function addEntry(item: Item) {
+async function addEntry(user:User|null, item: Item) {
     return addDoc(collection(db,"items"),{
+        user: user?.email,
         name: item.name,
         category: item.category,
         date: item.date,
@@ -19,8 +21,9 @@ async function addEntry(item: Item) {
     }).then(() => alert("Item successfully added")).catch(() => alert("Error"));
 }
 
-async function updateEntry(item: Item) {
-    return setDoc(doc(db,"items", item.id!),{
+async function updateEntry(user:User|null, item: Item) {
+    return setDoc(doc(db,"items",item.id!),{
+        user: user?.email,
         name: item.name,
         category: item.category,
         date: item.date,
@@ -41,6 +44,13 @@ async function readEntries() {
 
 async function deleteEntry(item:Item) {
     return deleteDoc(doc(db, "items", item.id!)).then(() => alert("Item successfully added")).catch(() => alert("Error"));
+}
+
+async function getUserItems(user: User) {
+    const q = query(collection(db, "items"), where("user", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot;
+
 }
 
 

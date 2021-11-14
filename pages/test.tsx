@@ -1,15 +1,18 @@
+import { User } from "firebase/auth";
 import { addEntry, deleteEntry, Item, readEntries, updateEntry } from "../firebase/firebase";
+import { auth } from "./_app";
 
 const Test = () => {
+    const user = auth.currentUser;
     const testCreate = () => {
-        let item:Item = {
+        let item: Item = {
             name: "Bob",
             category: "pants",
             date: new Date(2021, 8, 3),
             location: "SU",
             description: "Nike black pants"
         }
-        addEntry(item);
+        addEntry(user, item);
     }
 
     const testUpdate = () => {
@@ -21,7 +24,7 @@ const Test = () => {
             location: "Library",
             description: "Nike black pants"
         }
-        updateEntry(item);
+        updateEntry(user, item);
     }
 
     const testRead = () => readEntries();
