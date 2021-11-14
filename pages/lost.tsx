@@ -61,13 +61,13 @@ const Lost: NextPage = () => {
     const imageStyle: CSSProperties = {
       backgroundImage: "url('/itemimages/" + item.name + ".jpg'), url('/graytangle.png')",
       backgroundPosition: "center",
-      backgroundSize: "contain"
+      backgroundSize: "cover"
     }
 
     return (
       <div key={item.name} className="flex justify-items-stretch items-stretch w-40 h-40" style={imageStyle}>
         <a className="w-full" href={"/item?id=" + item.name}>
-          <p className="relative top-1 left-1 text-white italic">{item.name}</p>
+          <p className="relative top-1 left-1 italic">{item.name}</p>
         </a>
       </div>
 

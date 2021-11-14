@@ -63,7 +63,7 @@ const ItemView: NextPage = () => {
       <div className="mt-32 flex flex-row gap-20 justify-center align-center">
         <div className="w-80 h-80" style={{
           backgroundImage: "url('/itemimages/" + (item && item.name) + ".jpg'), url('/graytangle.png')", backgroundPosition: "center",
-          backgroundSize: "contain"}}>
+          backgroundSize: "cover"}}>
         </div>
         <div className="">
           <h2 className="font-display text-5xl pb-5">{item && item.name || ''}</h2>

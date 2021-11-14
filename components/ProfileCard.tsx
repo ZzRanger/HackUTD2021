@@ -3,10 +3,12 @@ import { CSSProperties } from "react";
 import { deleteEntry } from "../firebase/firebase";
 
 export default function ProfileCard({ item }: DocumentData) {
-  function ItemImage({ item }: any): JSX.Element {
+  function ItemImage(item: DocumentData): JSX.Element {
+    console.log(item);
     const imageStyle: CSSProperties = {
-      backgroundImage:
-        "url('/api/images?id=" + item + "'), url('/graytangle.png')",
+      backgroundImage: "url('/itemimages/" + (item && item.name) + ".jpg'), url('/graytangle.png')",
+      backgroundPosition: "center",
+      backgroundSize: "cover"
     };
 
     return (
@@ -23,7 +25,7 @@ export default function ProfileCard({ item }: DocumentData) {
 
   return (
     <div className="flex flex-row mb-4">
-      <ItemImage itemId={item} />
+      {ItemImage(item)}
       <div className="p-5">
         <p className="text-lg">{item.name}</p>
         <p className="text-lg">Found on {item.date} at {item.location}</p>
