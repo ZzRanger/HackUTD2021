@@ -31,11 +31,11 @@ const ItemView: NextPage = () => {
       if (ditemId) {
         // console.log("YAY!");
        readEntry(ditemId!.toString()).then((value) => setItem(value));
-        
+
         // console.log(item);
       }
       // console.log(item);
-    
+
       // ...
     } else {
       // User is signed out
@@ -61,7 +61,9 @@ const ItemView: NextPage = () => {
         </a>
       </div>
       <div className="mt-32 flex flex-row gap-20 justify-center align-center">
-        <div className="w-80 h-80" style={{ backgroundImage: "url('/api/images?id=" + itemId + "'), url('/graytangle.png')"}}>
+        <div className="w-80 h-80" style={{
+          backgroundImage: "url('/itemimages/" + (item && item.name) + ".jpg'), url('/graytangle.png')", backgroundPosition: "center",
+          backgroundSize: "contain"}}>
         </div>
         <div className="">
           <h2 className="font-display text-5xl pb-5">{item && item.name || ''}</h2>

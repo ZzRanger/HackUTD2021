@@ -24,7 +24,7 @@ const Lost: NextPage = () => {
       setUser(user);
       readEntries().then((value) => setItems([...value]));
       // console.log(items);
-    
+
       // ...
     } else {
       // User is signed out
@@ -32,7 +32,7 @@ const Lost: NextPage = () => {
       // console.log(items);
     }
   });
-  
+
   function SubcatDropdown(categories: Array<CategoryType>, categoryIndex: number): JSX.Element {
     let supercat = categories[categoryIndex].name;
     return (
@@ -59,13 +59,15 @@ const Lost: NextPage = () => {
 
   function ItemImage(item: DocumentData): JSX.Element {
     const imageStyle: CSSProperties = {
-      backgroundImage: "url('/api/images?id=" + item.name + "'), url('/graytangle.png')",
+      backgroundImage: "url('/itemimages/" + item.name + ".jpg'), url('/graytangle.png')",
+      backgroundPosition: "center",
+      backgroundSize: "contain"
     }
 
     return (
-      <div className="flex justify-items-stretch items-stretch w-40 h-40" style={imageStyle}>
+      <div key={item.name} className="flex justify-items-stretch items-stretch w-40 h-40" style={imageStyle}>
         <a className="w-full" href={"/item?id=" + item.name}>
-          <p className="relative top-1 left-1 text-white italic">Item name {item.category}</p>
+          <p className="relative top-1 left-1 text-white italic">{item.name}</p>
         </a>
       </div>
 
@@ -74,7 +76,7 @@ const Lost: NextPage = () => {
 
   function CategoryRow(cat: Array<CategoryType>,categoryIndex: number): JSX.Element {
     let category = categories[categoryIndex];
-    
+
     let filteredItems = null;
     if (items) {
       filteredItems = items.filter((value) => (category.subcategories.includes(value.category)));
@@ -83,13 +85,12 @@ const Lost: NextPage = () => {
     // const relvantItemIds: Array<string> = ["aaa", "bbb", "ccc", "ddd"];
 
     return (
-      <div className="mb-20">
+      <div key={category.name} className="mb-20">
         <h2 className="font-display text-5xl pb-5">{categories[categoryIndex].name}</h2>
         {SubcatDropdown(categories, categoryIndex)}
         <div className="grid grid-cols-4 gap-10 justify-items-center mt-5">
-          {items && 
-            filteredItems!.map(item => ItemImage(item))
-          }
+          {items &&
+            filteredItems!.map(item => ItemImage(item))}
         </div>
       </div>
     )
