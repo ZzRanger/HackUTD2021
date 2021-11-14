@@ -1,9 +1,50 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+// import { firestoreTest, initializeFirebase } from '../services/firebase'
 import styles from '../styles/Home.module.css'
 
+
+// Initialize firebase
+import firebase, { initializeApp } from 'firebase/app';
+import { getFirestore, doc, setDoc, Firestore, collection, addDoc } from 'firebase/firestore';
+
+
+// TODO: Replace the following with your app's Firebase project configuration
+const firebaseConfig = {
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const Home: NextPage = () => {
+
+  const usersCollectionRef = collection(db,"users");
+  
+  const createUser = async () => {
+    alert("RAN");
+    await addDoc(usersCollectionRef,{ name: "Joe",age: Number(10) });
+    alert("RAN");
+  };
+
+  async function firestoreTest(db: Firestore) {
+  
+    console.log(db);
+      // Add a new document in collection "cities"
+  
+      console.log("Weird");
+      setDoc(doc(db,"users","AA"),{
+        name: "Los Angeles",
+        state: "CA",
+        country: "USA"
+      })
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -12,6 +53,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="text-2xl"> Hi testing</div>
+
+      <button onClick={createUser}> Test This </button>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
@@ -71,3 +114,5 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+
