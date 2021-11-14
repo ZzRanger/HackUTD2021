@@ -3,6 +3,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
+      orange: "#FFB673",
       green: {
         DEFAULT: "#96A885",
         light: "#E0F5CE"

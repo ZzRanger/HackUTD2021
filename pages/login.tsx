@@ -6,6 +6,8 @@ import { stringify } from "querystring";
 import { auth, db } from "./_app";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { TextField, ThemeProvider } from "@mui/material";
+import { greenTheme } from "./muiTheme";
 
 const Login: NextPage = () => {
 
@@ -30,7 +32,7 @@ const Login: NextPage = () => {
 
   return (
     <div className={styles.homebg}>
-      <div className="main-bg flex justify-center items-center p-20 h-screen">
+      <div className="flex justify-center items-center p-20 h-screen">
         <div className="max-w-5xl bg-white bg-opacity-50 rounded-3xl p-20">
           <h1 className="pb-5 text-8xl font-display text-center">Lost & Found</h1>
           <div className="grid grid-cols-2 gap-40 justify-center items-center">
@@ -43,20 +45,20 @@ const Login: NextPage = () => {
             </div>
             <div className="flex flex-col"> {/* right column */}
               <h2 className="text-4xl">Log in</h2>
-              <form onSubmit={handleSubmit} action="" method="post">
-                <div>
-                  <label className="sr-only" htmlFor="netid">NetID</label> {/* labels for screenreaders */}
-                  <input className={styles.loginfields} value={input.netid} onChange={handleChange} type="text" name="netid" id="netid" placeholder="NetID" />
-                </div>
-                <div>
-                  <label className="sr-only" htmlFor="password">Password</label>
-                  <input className={styles.loginfields} value={input.password} onChange={handleChange} type="password" name="password" id="password" placeholder="Password" />
-                </div>
-                <div className="flex flex-col items-end">
-                  <a className="text-sm pb-10" href="#">Forgot password?</a>
-                  <input className="bg-green w-40 h-8 rounded-2xl" type="submit" value="Sign In" />
-                </div>
-              </form>
+              <ThemeProvider theme={greenTheme}>
+                <form onSubmit={handleSubmit} action="" method="post">
+                  <div>
+                    <TextField className={styles.loginfields} value={input.netid} onChange={handleChange} type="text" name="netid" id="netid" placeholder="NetID" variant="standard" />
+                  </div>
+                  <div>
+                    <TextField className={styles.loginfields} value={input.password} onChange={handleChange} type="password" name="password" id="password" placeholder="Password" variant="standard" />
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <a className="text-sm pb-10" href="#">Forgot password?</a>
+                    <input className="bg-green w-40 h-8 rounded-2xl" type="submit" value="Sign In" />
+                  </div>
+                </form>
+              </ThemeProvider>
             </div>
           </div>
         </div>
