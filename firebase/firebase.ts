@@ -33,9 +33,23 @@ async function updateEntry(user:User|null, item: Item) {
     }).then(() => alert("Item successfully added")).catch(() => alert("Error"));
 }
 
-async function readEntries() {
+async function readEntry(name: string) {
+    // console.log("HUH");
+    // console.log(name);
+    let items: DocumentData[] = [];
     const querySnapshot = await getDocs(collection(db,"items"));
-    return querySnapshot;
+    querySnapshot.forEach((value) => items.push(value.data()));
+    // console.log(items);
+    let item = items.filter((value) => value.name === name);
+    // console.log(item[0]);
+    return item[0];
+
+}
+async function readEntries() {
+    let items: DocumentData[] = [];
+    const querySnapshot = await getDocs(collection(db,"items"));
+    querySnapshot.forEach((value) => items.push(value.data()));
+    return items;
     // TODO: In Lost, render cards in
 
 //     querySnapshot.forEach((doc) => {
@@ -62,5 +76,6 @@ export {
     updateEntry,
     readEntries,
     deleteEntry,
-    getUserItems
+    getUserItems,
+    readEntry
 }

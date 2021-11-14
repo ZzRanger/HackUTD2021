@@ -18,7 +18,7 @@ const Home: NextPage = () => {
           <Image src="/smprofile.svg" width="32px" height="32px" alt="profile icon" />
           <p className="text-lg">My Profile</p>
         </a>
-        <a className="flex items-center bg-green w-40 h-8 rounded-2xl " href="">
+        <a className="flex items-center bg-green w-40 h-8 rounded-2xl " href="/login">
           <p className="w-full text-center">Sign out</p>
         </a>
       </div>

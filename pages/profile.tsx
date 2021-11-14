@@ -13,7 +13,6 @@ import ProfileCard from "../components/ProfileCard";
 
 const Profile: NextPage = () => {
   const auth = getAuth();
-  const hacker = "John Doe";
   const [user,setUser] = useState<User |null>(null);
   const [items,setItems] = useState<DocumentData[] | null>(null);
 
@@ -53,7 +52,7 @@ const Profile: NextPage = () => {
           {/* profile and log out buttons */}
           <a
             className="flex items-center bg-green-light w-40 h-8 rounded-2xl "
-            href=""
+            href="/login"
           >
             <p className="w-full text-center">Sign out</p>
           </a>
