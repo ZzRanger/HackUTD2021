@@ -1,5 +1,6 @@
 import { DocumentData } from "firebase/firestore";
 import { CSSProperties } from "react";
+import { deleteEntry } from "../firebase/firebase";
 
 export default function ProfileCard({ item }: DocumentData) {
   function ItemImage({ item }: any): JSX.Element {
@@ -33,12 +34,12 @@ export default function ProfileCard({ item }: DocumentData) {
           >
             <p className="w-full text-center">Edit</p>
           </a>
-          <a
-            className="flex items-center bg-green w-20 h-8 rounded-2xl "
-            href=""
+          <button
+                      className="flex items-center bg-green w-20 h-8 rounded-2xl "
+                      onClick={() => deleteEntry(item)}
           >
             <p className="w-full text-center">Delete</p>
-          </a>
+          </button>
         </div>
       </div>
     </div>

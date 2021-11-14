@@ -16,7 +16,7 @@ const Login: NextPage = () => {
   const [input,setInput] = useState({ netid: '',password: '' });
 
   const signIn = (email:string, password:string) => {
-    signInWithEmailAndPassword(auth,email,password).then(() => { alert("Yeet"); router.push('/'); }).catch(() => alert("Rip"))
+    signInWithEmailAndPassword(auth,email,password).then(() => { alert("Logged in!"); router.push('/'); }).catch(() => alert("Invalid credentials"))
   }
 
   const handleSubmit = (event: any) => {

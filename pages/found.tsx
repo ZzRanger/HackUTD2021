@@ -56,7 +56,7 @@ const Found: NextPage = () => {
           </a>
         </div>
         <div className="flex flex-col p-20">
-          <h1>Found</h1>
+          <h1 className="text-8xl">Found</h1>
           <p className="text-center">Provide identifying information for the item you found.</p>
         </div>
       </div>

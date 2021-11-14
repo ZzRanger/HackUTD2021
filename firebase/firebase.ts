@@ -1,5 +1,5 @@
 import { User } from "firebase/auth";
-import { addDoc, collection, doc, setDoc, getDocs, deleteDoc, query, where, DocumentData, QueryDocumentSnapshot} from "firebase/firestore";
+import { addDoc, collection, doc, setDoc, getDocs, deleteDoc, query, where, DocumentData, QueryDocumentSnapshot, getDoc} from "firebase/firestore";
 import { auth, db } from "../pages/_app";
 
 export type Item = {
@@ -57,8 +57,20 @@ async function readEntries() {
 // }); 
 }
 
-async function deleteEntry(item:Item) {
-    return deleteDoc(doc(db, "items", item.id!)).then(() => alert("Item successfully added")).catch(() => alert("Error"));
+async function deleteEntry(item: Item) {
+    let ids: string[] = [];
+    let finalId = '';
+    const querySnapshot = await getDocs(collection(db,"items"));
+    querySnapshot.forEach((value) => ids.push(value.id));
+    for (let id of ids) {
+        let test = await getDoc(doc(db,"items",id));
+        if (test.data()!.name === item.name) {
+            finalId = id;
+            break;
+        }
+    }
+   
+    return deleteDoc(doc(db, "items", finalId)).then(() => alert("Item successfully added")).catch(() => alert("Error"));
 }
 
 async function getUserItems(user: User | null) {
