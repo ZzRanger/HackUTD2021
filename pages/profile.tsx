@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
+import Router from "next/router";
 import styles from "../styles/Profile.module.css";
 import Image from "next/image";
 import { userInfo } from "os";
 import { auth } from "./_app";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { getUserItems } from "../firebase/firebase";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { QuerySnapshot, DocumentData } from "@firebase/firestore";
 import ProfileCard from "../components/ProfileCard";
 
@@ -25,13 +26,13 @@ const Profile: NextPage = () => {
       // https://firebase.google.com/docs/reference/js/firebase.User
       setUser(user);
       getUserItems(user).then((value) => setItems([...value]));
-      // console.log(items);
+      // console.log("if true");
 
       // ...
     } else {
-      // User is signed out
-      // ...
-      // console.log(items);
+      // if (!user) {
+      //   Router.push("/login")
+      // }
     }
   });
 
@@ -73,9 +74,9 @@ const Profile: NextPage = () => {
         <div className="flex justify-center">
           <div className="flex flex-col">
             {/* {items && <ProfileCard item={items[0]}/>} */}
-            {items && items.map((value) => {
+            {items && items.map((value, i) => {
               return (
-                <ProfileCard item={value} />
+                <ProfileCard key={i} item={value} />
               );
             }
             )}
