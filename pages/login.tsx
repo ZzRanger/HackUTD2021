@@ -14,14 +14,14 @@ const Login: NextPage = () => {
   const router = useRouter();
 
   const [input,setInput] = useState({ netid: '',password: '' });
-  
+
   const signIn = (email:string, password:string) => {
     signInWithEmailAndPassword(auth,email,password).then(() => { alert("Yeet"); router.push('/'); }).catch(() => alert("Rip"))
   }
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    
+
     signIn(input.netid,input.password);
   }
 
