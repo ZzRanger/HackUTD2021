@@ -1,4 +1,9 @@
-export const categories = [
+export interface CategoryType {
+  name: string,
+  subcategories: Array<string>
+}
+
+export const categories: Array<CategoryType> = [
   {
     "name": "personal",
     "subcategories": [
