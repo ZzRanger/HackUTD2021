@@ -1,11 +1,41 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import styles from "../styles/Login.module.css";
-import React from "react";
+import React, { useState } from "react";
+import { stringify } from "querystring";
+import firebase from "firebase";
 
 const Login: NextPage = () => {
+
+  const [input,setInput] = useState({netid:'', password:''});
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    alert(event);
+    console.log(input.netid,input.password);
+    firebase.auth().signInWithEmailAndPassword(input.netid, input.password)
+  .then((userCredential) => {
+    // Signed in
+    var user = userCredential.user;
+    alert("Worked!");
+    // ...
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    alert("Invalid user");
+    // ..
+  });
+  }
+
+  const handleChange = (event: any) => {
+    setInput({ ...input,[event.target.name]: event.target.value });
+  }
+
+  React.useEffect(() => console.log(input));
+
   return (
-    <div className={styles.mainbg}>
+    <div className={styles.homebg}>
       <div className="main-bg flex justify-center items-center p-20 h-screen">
         <div className="max-w-5xl bg-white bg-opacity-50 rounded-3xl p-20">
           <h1 className="pb-5 text-8xl font-display text-center">Lost & Found</h1>
@@ -19,14 +49,14 @@ const Login: NextPage = () => {
             </div>
             <div className="flex flex-col"> {/* right column */}
               <h2 className="text-4xl">Log in</h2>
-              <form action="" method="post">
+              <form onSubmit={handleSubmit} action="" method="post">
                 <div>
                   <label className="sr-only" htmlFor="netid">NetID</label> {/* labels for screenreaders */}
-                  <input className={styles.loginfields} type="text" name="netid" id="netid" placeholder="NetID" />
+                  <input className={styles.loginfields} value={input.netid} onChange={handleChange} type="text" name="netid" id="netid" placeholder="NetID" />
                 </div>
                 <div>
                   <label className="sr-only" htmlFor="password">Password</label>
-                  <input className={styles.loginfields} type="password" name="password" id="password" placeholder="Password" />
+                  <input className={styles.loginfields} value={input.password} onChange={handleChange} type="password" name="password" id="password" placeholder="Password" />
                 </div>
                 <div className="flex flex-col items-end">
                   <a className="text-sm pb-10" href="#">Forgot password?</a>
@@ -39,6 +69,6 @@ const Login: NextPage = () => {
       </div>
     </div>
   );
-};
+  };
 
 export default Login;

@@ -1,5 +1,5 @@
 @layer components {
-  .mainbg {
+  .homebg {
     @apply font-sans-serif;
     background-image: linear-gradient(90deg, theme(colors.green.DEFAULT), theme(colors.green.DEFAULT) 50%, theme(colors.green.light) 50%, theme(colors.green.light))
   }
