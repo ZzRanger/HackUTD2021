@@ -1,5 +1,5 @@
 import { User } from "firebase/auth";
-import { addDoc, collection, doc, setDoc, getDocs, deleteDoc, query, where} from "firebase/firestore";
+import { addDoc, collection, doc, setDoc, getDocs, deleteDoc, query, where, DocumentData, QueryDocumentSnapshot} from "firebase/firestore";
 import { auth, db } from "../pages/_app";
 
 export type Item = {
@@ -10,7 +10,8 @@ export type Item = {
     location: string,
     description: string
 }
-async function addEntry(user:User|null, item: Item) {
+async function addEntry(user: User | null,item: Item) {
+    console.log(user);
     return addDoc(collection(db,"items"),{
         user: user?.email,
         name: item.name,
@@ -46,10 +47,12 @@ async function deleteEntry(item:Item) {
     return deleteDoc(doc(db, "items", item.id!)).then(() => alert("Item successfully added")).catch(() => alert("Error"));
 }
 
-async function getUserItems(user: User) {
-    const q = query(collection(db, "items"), where("user", "==", user.email));
+async function getUserItems(user: User | null) {
+    let items: DocumentData[] = [];
+    const q = query(collection(db, "items"), where("user", "==", user!.email));
     const querySnapshot = await getDocs(q);
-    return querySnapshot;
+    querySnapshot.forEach((value) => items.push(value.data()));
+    return items;
 
 }
 
@@ -58,5 +61,6 @@ export {
     addEntry,
     updateEntry,
     readEntries,
-    deleteEntry
+    deleteEntry,
+    getUserItems
 }

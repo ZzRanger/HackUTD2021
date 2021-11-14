@@ -1,11 +1,16 @@
+import { getAuth } from "firebase/auth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import { auth } from "./_app";
 
 // should redirect to login page if not logged in
 
 
 const Home: NextPage = () => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  console.log(user);
   return (
     <div className={styles.homebg}>
       <div className="absolute top-2 right-2 flex items-center"> {/* profile and log out buttons */}

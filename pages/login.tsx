@@ -8,19 +8,20 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { TextField, ThemeProvider } from "@mui/material";
 import { greenTheme } from "./muiTheme";
+import { useRouter } from "next/dist/client/router";
 
 const Login: NextPage = () => {
+  const router = useRouter();
 
   const [input,setInput] = useState({ netid: '',password: '' });
   
   const signIn = (email:string, password:string) => {
-    signInWithEmailAndPassword(auth,email,password).then(() => alert("Yeet")).catch(() => alert("Rip"));  
+    signInWithEmailAndPassword(auth,email,password).then(() => { alert("Yeet"); router.push('/'); }).catch(() => alert("Rip"))
   }
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    alert(event);
-    console.log(input.netid,input.password);
+    
     signIn(input.netid,input.password);
   }
 
