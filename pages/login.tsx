@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import SuperHead from "./components/SuperHead";
 import Image from "next/image";
 import styles from "../styles/Login.module.css";
 import React from "react";
@@ -7,7 +6,6 @@ import React from "react";
 const Login: NextPage = () => {
   return (
     <div className={styles.mainbg}>
-      <SuperHead />
       <div className="main-bg flex justify-center items-center p-20 h-screen">
         <div className="max-w-5xl bg-white bg-opacity-50 rounded-3xl p-20">
           <h1 className="pb-5 text-8xl font-display text-center">Lost & Found</h1>
