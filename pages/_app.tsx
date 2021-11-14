@@ -4,9 +4,18 @@ import "tailwindcss/tailwind.css"
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import React from 'react';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      <Head>
+        <title>UTD Lost & Found</title>
+      </Head>
+      <Component {...pageProps} />
+    </>
+  )
 }
 
 // TODO: Replace the following with your app's Firebase project configuration
