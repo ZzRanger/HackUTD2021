@@ -6,7 +6,7 @@ import styles from "../styles/Home.module.css";
 const Home: NextPage = () => {
   return (
     <div className={styles.mainbg}>
-      <SuperHead title="asdf" />
+      <SuperHead />
       <div className="main-bg flex justify-center items-center p-20 h-screen">
         <div className="max-w-5xl bg-white bg-opacity-50 rounded-3xl p-20">
           <h1 className="pb-5 text-8xl font-display text-center">Lost & Found</h1>
