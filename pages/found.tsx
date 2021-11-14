@@ -4,7 +4,9 @@ import styles from "../styles/Found.module.css";
 import { InputLabel, Select, TextField, ThemeProvider } from "@mui/material";
 import { orangeTheme } from "./muiTheme";
 import categories from "./categories";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { addEntry } from "../firebase/firebase";
+import { auth } from "./_app";
 
 // should redirect to login page if not logged in
 
@@ -18,15 +20,23 @@ export type Found = {
 
 const Found: NextPage = () => {
 
-  const [found, setFound] = useState({ name: '', categories: '', date: '', location: '', description: '' });
+  const user = auth.currentUser;
+
+  const [found, setFound] = useState({ name: '', categories: '', date: new Date().toISOString().slice(0, 10), location: '', description: '' });
 
   const handleChange = (event: any) => {
+    console.log(event.target.value);
     setFound({ ...found, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event: any) => {
+    event.preventDefault();
     // TODO: Connect to firebase
+    addEntry(user,found);
+    alert("YEET");
   }
+
+  useEffect(() => console.log(found));
 
 
 
@@ -59,10 +69,10 @@ const Found: NextPage = () => {
         <div className="w-80 flex flex-col">
           <ThemeProvider theme={orangeTheme}>
             <form action=""onSubmit={handleSubmit}>
-              <TextField className="mb-5 w-full" type="text" name="name" id="name" value={found.name} placeholder="item name" variant="standard" />
+              <TextField className="mb-5 w-full" onChange={handleChange} type="text" name="name" id="name" value={found.name} placeholder="item name" variant="standard" />
               {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
-              <Select className="mb-5 w-full" native id="categories" label="Thigny" value={found.categories}>
-                <option aria-label="None" value="category item">Select category</option>
+              <Select onChange={handleChange} name={"categories"} className="mb-5 w-full" native id="categories" label="Thigny" value={found.categories}>
+                <option aria-label="None">Select category</option>
                 {
                   categories.map((supercat) => {
                     return (
@@ -86,11 +96,14 @@ const Found: NextPage = () => {
                 label="Select date"
                 type="date"
                 name="date"
-                value={new Date().toISOString().slice(0, 10)}
+                onChange={handleChange}
+                value={found.date}
               />
-              <TextField className="mb-5 w-full" type="text" name="location" id="location" placeholder="location found" variant="standard" />
+              <TextField onChange={handleChange} className="mb-5 w-full" type="text" name="location" id="location" placeholder="location found" variant="standard" />
               <TextField
                 className="mb-5"
+                name="description"
+                onChange={handleChange}
                 value={found.description}
                 id="outlined-multiline-static"
                 label="enter description here"

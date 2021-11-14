@@ -5,8 +5,8 @@ import { auth, db } from "../pages/_app";
 export type Item = {
     id?: string, // firestore id
     name: string,
-    category: string,
-    date: Date,
+    categories: string,
+    date: string,
     location: string,
     description: string
 }
@@ -14,7 +14,7 @@ async function addEntry(user:User|null, item: Item) {
     return addDoc(collection(db,"items"),{
         user: user?.email,
         name: item.name,
-        category: item.category,
+        category: item.categories,
         date: item.date,
         location: item.location,
         description: item.description,
@@ -25,7 +25,7 @@ async function updateEntry(user:User|null, item: Item) {
     return setDoc(doc(db,"items",item.id!),{
         user: user?.email,
         name: item.name,
-        category: item.category,
+        category: item.categories,
         date: item.date,
         location: item.location,
         description: item.description,
