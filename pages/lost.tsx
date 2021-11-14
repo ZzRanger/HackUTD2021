@@ -1,36 +1,39 @@
 import { CSSProperties } from "react";
 import type { NextPage } from "next";
 import Image from "next/image";
-import { FormControl, Select, MenuItem, InputLabel } from "@mui/material";
+import { ThemeProvider, FormControl, Select, MenuItem, InputLabel } from "@mui/material";
 import styles from "../styles/Lost.module.css";
+import { orangeTheme } from "./muiTheme";
 import categories, { CategoryType } from "./categories";
 
 // should redirect to login page if not logged in
 
 const Lost: NextPage = () => {
-  function SubcatDropdown(categories: Array<CategoryType>, categoryIndex: number) {
+  function SubcatDropdown(categories: Array<CategoryType>, categoryIndex: number): JSX.Element {
     let supercat = categories[categoryIndex].name;
     return (
       <FormControl className="w-full">
-        <InputLabel id={supercat + "-subcat-label"}>{supercat}</InputLabel>
-        <Select
-          labelId={supercat + "-subcat-label"}
-          id={supercat + "-subcat"}
-          label={supercat}
-          value="Select a subcategory"
-        >
-          <MenuItem value="Select a subcategory">Select a subcategory</MenuItem>
-          {categories[categoryIndex].subcategories.map((subcat) => {
-            return (
-              <MenuItem key={subcat} value={subcat}>{subcat}</MenuItem>
-            );
-          })}
-        </Select>
+        <ThemeProvider theme={orangeTheme}>
+          <InputLabel id={supercat + "-subcat-label"}>{supercat}</InputLabel>
+          <Select
+            labelId={supercat + "-subcat-label"}
+            id={supercat + "-subcat"}
+            label={supercat}
+            value="Select a subcategory"
+          >
+            <MenuItem value="Select a subcategory">Select a subcategory</MenuItem>
+            {categories[categoryIndex].subcategories.map((subcat) => {
+              return (
+                <MenuItem key={subcat} value={subcat}>{subcat}</MenuItem>
+              );
+            })}
+          </Select>
+        </ThemeProvider>
       </FormControl>
     );
   }
 
-  function ItemImage(itemId: string) {
+  function ItemImage(itemId: string): JSX.Element {
     const imageStyle: CSSProperties = {
       backgroundImage: "url('/api/images?id=" + itemId + "'), url('/graytangle.png')",
     }
@@ -42,6 +45,22 @@ const Lost: NextPage = () => {
         </a>
       </div>
 
+    )
+  }
+
+  function CategoryRow(categories: Array<CategoryType>, categoryIndex: number): JSX.Element {
+    const relvantItemIds: Array<string> = ["aaa", "bbb", "ccc", "ddd"];
+
+    return (
+      <div className="mb-20">
+        <h2 className="font-display text-5xl pb-5">{categories[categoryIndex].name}</h2>
+        {SubcatDropdown(categories, categoryIndex)}
+        <div className="grid grid-cols-4 gap-10 justify-items-center mt-5">
+          {
+            relvantItemIds.map(item => ItemImage(item))
+          }
+        </div>
+      </div>
     )
   }
 
@@ -65,7 +84,13 @@ const Lost: NextPage = () => {
           <p className="text-center">Choose a category and select the type of item(s) you’re looking for.</p>
         </div>
       </div>
-      {ItemImage("asd")}
+      <div className="flex justify-center">
+        <div className="flex flex-col">
+          {
+            categories.map((cat, i) => CategoryRow(categories, i))
+          }
+        </div>
+      </div>
     </div>
   );
 };
