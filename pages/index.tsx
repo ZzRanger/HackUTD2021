@@ -1,18 +1,26 @@
 import type { NextPage } from "next";
 import SuperHead from "./components/SuperHead";
 import Image from "next/image";
-import styles from "../styles/Login.module.css";
+import styles from "../styles/Home.module.css";
 
-const Login: NextPage = () => {
+// should redirect to login page if not logged in
+
+const Home: NextPage = () => {
   return (
     <div className={styles.mainbg}>
       <SuperHead />
-      <div className="main-bg grid grid-cols-2 gap-40 justify-center items-center p-20 h-screen">
-        <div>1</div>
-        <div>2</div>
+      <div className="main-bg grid grid-cols-2 justify-stretch items-stretch h-screen">
+        <a className={styles.lostfoundlinks} href="#">
+          <h1>Lost</h1>
+          <p>Searching for lost item</p>
+        </a>
+        <a className={styles.lostfoundlinks} href="#">
+          <h1>Found</h1>
+          <p>Registering found item</p>
+        </a>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Home;
