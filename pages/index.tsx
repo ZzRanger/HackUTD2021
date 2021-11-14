@@ -7,7 +7,7 @@ import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.mainbg}>
+    <div className={styles.homebg}>
       <div className="main-bg grid grid-cols-2 justify-stretch items-stretch h-screen">
         <a className={styles.lostfoundlinks} href="#">
           <h1>Lost</h1>

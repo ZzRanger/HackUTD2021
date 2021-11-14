@@ -15,7 +15,7 @@ const Login: NextPage = () => {
     console.log(input.netid,input.password);
     firebase.auth().signInWithEmailAndPassword(input.netid, input.password)
   .then((userCredential) => {
-    // Signed in 
+    // Signed in
     var user = userCredential.user;
     alert("Worked!");
     // ...
@@ -31,11 +31,11 @@ const Login: NextPage = () => {
   const handleChange = (event: any) => {
     setInput({ ...input,[event.target.name]: event.target.value });
   }
-  
+
   React.useEffect(() => console.log(input));
 
   return (
-    <div className={styles.mainbg}>
+    <div className={styles.homebg}>
       <div className="main-bg flex justify-center items-center p-20 h-screen">
         <div className="max-w-5xl bg-white bg-opacity-50 rounded-3xl p-20">
           <h1 className="pb-5 text-8xl font-display text-center">Lost & Found</h1>
