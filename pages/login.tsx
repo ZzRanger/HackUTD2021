@@ -3,31 +3,26 @@ import Image from "next/image";
 import styles from "../styles/Login.module.css";
 import React, { useState } from "react";
 import { stringify } from "querystring";
-import firebase from "firebase";
+import { auth, db } from "./_app";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { TextField, ThemeProvider } from "@mui/material";
 import { greenTheme } from "./muiTheme";
+import { useRouter } from "next/dist/client/router";
 
 const Login: NextPage = () => {
+  const router = useRouter();
 
-  const [input,setInput] = useState({netid:'', password:''});
+  const [input,setInput] = useState({ netid: '',password: '' });
+
+  const signIn = (email:string, password:string) => {
+    signInWithEmailAndPassword(auth,email,password).then(() => { alert("Logged in!"); router.push('/'); }).catch(() => alert("Invalid credentials"))
+  }
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    alert(event);
-    console.log(input.netid,input.password);
-    firebase.auth().signInWithEmailAndPassword(input.netid, input.password)
-  .then((userCredential) => {
-    // Signed in
-    var user = userCredential.user;
-    alert("Worked!");
-    // ...
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    alert("Invalid user");
-    // ..
-  });
+
+    signIn(input.netid,input.password);
   }
 
   const handleChange = (event: any) => {

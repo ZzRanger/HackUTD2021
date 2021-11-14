@@ -36,3 +36,4 @@ env.local
 
 # typescript
 *.tsbuildinfo
+.env
