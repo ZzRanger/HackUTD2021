@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-8xl font-display text-center
+  }
+  p {
+    @apply text-lg
+  }
+}
