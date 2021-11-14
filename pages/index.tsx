@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import initFirebase from "../firebase/initFirebase";
 import styles from "../styles/Home.module.css";
 
 // should redirect to login page if not logged in
